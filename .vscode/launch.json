@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": ".",
-      "program": "build/Debug/outDebug",
+      "cwd": "d:/VISUAL STUDIO/codes/Codes/C++/Sheet 1/output",
+      "program": "d:/VISUAL STUDIO/codes/Codes/C++/Sheet 1/output/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
