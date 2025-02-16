@@ -1,3 +1,4 @@
+// The last 2 digit
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
