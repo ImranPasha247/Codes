@@ -11,9 +11,9 @@ int main(){
     cout<<a<<endl<<b<<endl<<c<<endl;
 }
 int min_value (long long a,long long b,long long c){
-    if(a<b && a<c){
+    if(a<=b && a<=c){
         return a;
-    }else if(b<c && b<a){
+    }else if(b<=c && b<=a){
         return b;
     }else{
         return c;
@@ -24,9 +24,9 @@ int mid_value (long long a,long long b,long long c){
 }
 
 int max_value (long long a,long long b,long long c){
-    if(a>b && a>c){
+    if(a>=b && a>=c){
         return a;
-    }else if(b>c && b>a){
+    }else if(b>=c && b>=a){
         return b;
     }else{
         return c;

@@ -5,9 +5,9 @@ int main(){
     double a;
     cin>>a;    
     if(a==(int)a){
-        cout<<"int "<<a<<endl;
+        cout<<"int "<<(int)a<<endl;
     }else{
-        cout<<"float "<<a<<endl;
+        cout<<"float "<<(int)a<<" "<<a-(int)a<<endl;
     }
 }
 // Q1. if(typeid(a).name()== "i"||"int"){ Const char, Comparison with string literal results in unspecified behavior[-Waddress]}
