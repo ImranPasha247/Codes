@@ -1,28 +1,22 @@
 #include<bits/stdc++.h>
 using namespace std;
-int number(int b);
+void test_case();
 int main(){
-    long long a,b;
-    cin>>a;
-    for(int i =1;i<=a;i++){
-        cin>>b;
-        int n=number(b);
-        for(int j = 1;j<=n;j++){
-            cout<<b%10<<" ";
-            b=b/10;
-        }
-        cout<<endl;
+    long long t;
+    cin>>t;
+    while(t--){
+    test_case();
     }
 }
-int number(int b){
-    long long n=0;
-    for(;;){
-        if(b==0){
-            break;
-        }else{
-            b/=10;
-            n++;
-        }
+void test_case(){
+    long long a;
+    cin>>a;
+    if(a==0){
+        cout<<"0 ";
     }
-    return n;
+    while(a!=0){
+        cout<<a%10<<" ";
+        a/=10;
+    }
+    cout<<endl;
 }

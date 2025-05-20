@@ -2,11 +2,17 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-    int a,b,c,d;
+    long long a,b,c,d;
     cin>>a>>b>>c>>d;
-    if(pow(a,b)>pow(c,d)){
+    if(b*log(a)>d*log(c)){
         cout<<"YES";
     }else{
         cout<<"NO";
     }
 }
+/*
+Discussion:
+    In this problem, we used the mathamatical term....
+    But this one also can Done by pow(a,b) > pow(c,d)
+    But there will be a problem..Cuz in the condition the value will be to big it wont give a big number
+*/
