@@ -1,13 +1,12 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-    long long n,a;
+    long long n;
     cin>>n;
     string s=to_string(n);
     long long x=s.length(),arr[x];
     for(int i=0;i<x;i++){
-        a=n%10;
-        arr[i]=a;
+        arr[i]=n%10;
         n/=10;
     }
     long long c,k=0;
