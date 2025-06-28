@@ -11,9 +11,7 @@ int main(){
 void solve(){
     long long a,b,sum=0;
     cin>>a>>b;
-    for(;a<=b;a++){
-        sum+=a;
-    }
-    cout<<sum<<endl;
-
+    long long mx=max(a,b),mn=min(a,b);
+    sum = (mx-mn+1)*(mx+mn);
+    cout<<sum/2<<endl;
 }
