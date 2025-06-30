@@ -1,71 +1,99 @@
-#include <iostream>
-#include <string>
+#include <bits/stdc++.h>
 using namespace std;
 
 const int TABLE_SIZE = 100;
 
-// Contact structure
 struct Contact {
     string name;
     string phone;
-    Contact* next; // for chaining
+    Contact* next;
 };
 
-// Hash Table
-Contact* hashTable[TABLE_SIZE];
+Contact* hashTable[TABLE_SIZE] = {nullptr};
 
-// Hash Function
 int hashFunction(string key) {
     int sum = 0;
-    for (char ch : key) {
-        sum += ch;
-    }
+    for (char ch : key) sum += ch;
     return sum % TABLE_SIZE;
 }
 
-// Insert Contact
-void insertContact(string name, string phone) {
-    int index = hashFunction(name);
-    Contact* newContact = new Contact{name, phone, nullptr};
-
-    if (hashTable[index] == nullptr) {
-        hashTable[index] = newContact;
-    } else {
-        // Add at the beginning (chaining)
-        newContact->next = hashTable[index];
-        hashTable[index] = newContact;
-    }
-
-    cout << "Contact added successfully!\n";
+string toLowerCase(string str) {
+    transform(str.begin(), str.end(), str.begin(), ::tolower);
+    return str;
 }
 
-// Search Contact
-void searchContact(string name) {
+bool matchName(string fullName, string keyword) {
+    fullName = toLowerCase(fullName);
+    keyword = toLowerCase(keyword);
+    stringstream ss(fullName);
+    string word;
+    while (ss >> word) {
+        if (word == keyword) return true;
+    }
+    return false;
+}
+
+void insertContact(string name, string phone) {
+    if (name.empty() || phone.empty()) {
+        cout << "Name or phone number cannot be empty.\n";
+        return;
+    }
+
     int index = hashFunction(name);
     Contact* current = hashTable[index];
-    while (current != nullptr) {
+
+    while (current) {
         if (current->name == name) {
-            cout << "Name: " << current->name << ", Phone: " << current->phone << endl;
+            cout << "Contact with this name already exists.\n";
             return;
         }
         current = current->next;
     }
-    cout << "Contact not found.\n";
+
+    Contact* newContact = new Contact{name, phone, nullptr};
+    newContact->next = hashTable[index];
+    hashTable[index] = newContact;
+
+    cout << "Contact added successfully!\n";
 }
 
-// Delete Contact
+void searchContact(string name) {
+    if (name.empty()) {
+        cout << "Search keyword cannot be empty.\n";
+        return;
+    }
+
+    string keyword = toLowerCase(name);
+    bool found = false;
+
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        Contact* current = hashTable[i];
+        while (current) {
+            if (matchName(current->name, keyword)) {
+                cout << "Name: " << current->name << ", Phone: " << current->phone << endl;
+                found = true;
+            }
+            current = current->next;
+        }
+    }
+
+    if (!found) cout << "Contact not found.\n";
+}
+
 void deleteContact(string name) {
+    if (name.empty()) {
+        cout << "Name cannot be empty.\n";
+        return;
+    }
+
     int index = hashFunction(name);
     Contact* current = hashTable[index];
     Contact* prev = nullptr;
 
-    while (current != nullptr) {
+    while (current) {
         if (current->name == name) {
-            if (prev == nullptr) {
-                hashTable[index] = current->next;
-            } else {
-                prev->next = current->next;
-            }
+            if (!prev) hashTable[index] = current->next;
+            else prev->next = current->next;
             delete current;
             cout << "Contact deleted successfully!\n";
             return;
@@ -73,17 +101,22 @@ void deleteContact(string name) {
         prev = current;
         current = current->next;
     }
+
     cout << "Contact not found.\n";
 }
 
-// Display All Contacts
 void displayContacts() {
+    bool hasContacts = false;
     for (int i = 0; i < TABLE_SIZE; i++) {
         Contact* current = hashTable[i];
-        while (current != nullptr) {
+        while (current) {
             cout << "Name: " << current->name << ", Phone: " << current->phone << endl;
             current = current->next;
+            hasContacts = true;
         }
+    }
+    if (!hasContacts) {
+        cout << "No contacts to display.\n";
     }
 }
 
@@ -99,8 +132,15 @@ int main() {
         cout << "4. Display All Contacts\n";
         cout << "5. Exit\n";
         cout << "Enter your choice: ";
-        cin >> choice;
-        cin.ignore(); // clear input buffer
+
+        if (!(cin >> choice)) {
+            cin.clear(); // clear error flag
+            cin.ignore(numeric_limits<streamsize>::max(), '\n'); // discard bad input
+            cout << "Invalid input. Please enter a number between 1 and 5.\n";
+            continue;
+        }
+
+        cin.ignore(); // clean leftover newline
 
         switch (choice) {
             case 1:
@@ -127,9 +167,7 @@ int main() {
                 cout << "Exiting...\n";
                 return 0;
             default:
-                cout << "Invalid choice. Try again.\n";
+                cout << "Invalid choice. Please select between 1 and 5.\n";
         }
     }
-
-    return 0;
 }
