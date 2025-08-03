@@ -1,22 +1,29 @@
-def generate_fibonacci(n):
-    fib_sequence = []
-    a, b = 0, 1
-    for _ in range(n):
-        fib_sequence.append(a)
-        a, b = b, a + b
-    return fib_sequence
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.stats import linregress, pearsonr
 
-def main():
-    try:
-        n = int(input("Enter the number of terms you want in the Fibonacci sequence: "))
-        if n <= 0:
-            print("Please enter a positive integer.")
-        else:
-            result = generate_fibonacci(n)
-            print(f"The first {n} terms of the Fibonacci sequence are:")
-            print(result)
-    except ValueError:
-        print("Invalid input! Please enter an integer.")
+advertising = np.array([10, 20, 30, 40, 50, 60, 70])
+sales = np.array([25, 45, 50, 65, 80, 95, 100])
 
-if __name__ == "__main__":
-    main()
+# Linear regression
+slope, intercept, r_value, p_value, std_err = linregress(advertising, sales)
+regression_line = slope * advertising + intercept
+
+# Plot scatter
+plt.figure(figsize=(10, 6))
+plt.scatter(advertising, sales, color='blue', label='Data Points')
+plt.plot(advertising, regression_line, color='red', label='Best-Fit Line')
+
+# Labeling
+plt.xlabel('Advertising Budget (in thousands)')
+plt.ylabel('Sales (in thousands)')
+plt.title('Advertising Budget vs Sales')
+plt.legend()
+plt.grid(True)
+
+# Display correlation coefficient
+r, _ = pearsonr(advertising, sales)
+plt.text(min(advertising), max(sales) - 5, f"Correlation Coefficient (r) = {r:.2f}", fontsize=12)
+
+plt.tight_layout()
+plt.show()
