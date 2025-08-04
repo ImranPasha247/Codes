@@ -14,3 +14,12 @@ int main(){
     sort(v.begin(),v.end());
     cout<<v.back()<<endl;
 }
+/*
+int main() {
+    int n;
+    cin>>n;
+    int a=n/2;
+    int b=n-a;
+    cout<<a*b<<endl;
+}
+*/
